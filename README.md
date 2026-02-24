@@ -49,7 +49,7 @@
 Run on **both servers** (Iran & foreign) as **root**:
 
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/YOUR_USERNAME/Gost-Manager/main/install.sh)
+bash <(curl -fsSL https://raw.githubusercontent.com/behzadea12/Gost-Tunnel-Manager/main/Gost-Manager.sh)
 ```
 
 > After installation, run the command `gost-manager` to open the main menu.
