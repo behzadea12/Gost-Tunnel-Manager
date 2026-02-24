@@ -50,7 +50,7 @@
 روی **هر دو سرور** (ایران و خارج) به عنوان **root** اجرا کنید:
 
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/YOUR_USERNAME/Gost-Manager/main/install.sh)
+bash <(curl -fsSL https://raw.githubusercontent.com/behzadea12/Gost-Tunnel-Manager/main/Gost-Manager.sh)
 ```
 
 > بعد از نصب، دستور `gost-manager` را بزنید تا منوی اصلی باز شود.
