@@ -1,4 +1,4 @@
-# Gost-Manager
+# Gost-Manager | [📄 فارسی](README.fa.md)
 🚀 **Professional script for managing secure and anti-filtering tunnels with GOST**
 > Special focus on bypassing DPI, high stability in unstable networks, and support for diverse and combined protocols (Shadowsocks, KCP, obfs4, QUIC, gRPC, TLS, WebSocket and more than 30 ready-made combinations).
 
