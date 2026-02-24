@@ -4,7 +4,7 @@
 # Project: Gost-Manager
 # Description: Advanced encrypted tunnel management with anti-DPI capabilities
 # Version: 1.3.0
-# GitHub: https://github.com/behzadea12/Gost-Manager
+# GitHub: https://github.com/behzadea12/Gost-Tunnel-Manager
 # ==============================================================================
 
 # ==============================================================================
