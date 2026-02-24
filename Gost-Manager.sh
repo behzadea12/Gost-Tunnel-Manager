@@ -258,33 +258,41 @@ deploy_gost_binary() {
         print_success "GOST binary already installed"
         return 0
     fi
-    
+
     local arch=$(detect_arch)
-    local version="v2.12.0"
-    local base_url="https://github.com/ginuerzh/gost/releases/download/${version}"
-    local filename="gost-linux-${arch}-${version}.gz"
-    
-    if [[ "$arch" == "arm64" ]]; then
-        filename="gost-linux-armv8-${version}.gz"
-    elif [[ "$arch" == "amd64" ]]; then
-        filename="gost-linux-amd64-${version}.gz"
+    local version="2.12.0"
+    local base_url="https://github.com/ginuerzh/gost/releases/download/v${version}"
+
+    local filename=""
+    if [[ "$arch" == "amd64" ]]; then
+        filename="gost_${version}_linux_amd64.tar.gz"
+    elif [[ "$arch" == "arm64" ]]; then
+        filename="gost_${version}_linux_arm64.tar.gz"
+    else
+        print_error "Unsupported architecture: $arch"
+        exit 1
     fi
-    
-    print_step "Downloading GOST ${version} for ${arch}..."
-    
+
+    print_step "Downloading GOST v${version} for ${arch}..."
+
     local max_attempts=3
     local attempt=1
-    
+
     while [ $attempt -le $max_attempts ]; do
-        if wget -q --timeout=10 --tries=2 "${base_url}/${filename}" -O /tmp/gost.gz; then
-            if [[ -s "/tmp/gost.gz" ]]; then
-                gzip -d -f /tmp/gost.gz
-                mv /tmp/gost "$BIN_PATH"
-                chmod +x "$BIN_PATH"
-                
-                if [[ -x "$BIN_PATH" ]]; then
-                    print_success "GOST installed successfully"
-                    return 0
+        if wget -q --timeout=10 --tries=2 "${base_url}/${filename}" -O /tmp/gost.tar.gz; then
+            if [[ -s "/tmp/gost.tar.gz" ]]; then
+                tar -xzf /tmp/gost.tar.gz -C /tmp
+                if [[ -f "/tmp/gost" ]]; then
+                    mv /tmp/gost "$BIN_PATH"
+                    chmod +x "$BIN_PATH"
+
+                    if [[ -x "$BIN_PATH" ]]; then
+                        print_success "GOST v${version} installed successfully"
+                        rm -f /tmp/gost.tar.gz /tmp/README.md
+                        return 0
+                    fi
+                else
+                    print_warning "gost binary not found in tar.gz"
                 fi
             fi
         fi
@@ -292,8 +300,8 @@ deploy_gost_binary() {
         ((attempt++))
         sleep 2
     done
-    
-    print_error "Failed to download GOST after $max_attempts attempts"
+
+    print_error "Failed to download or extract GOST after $max_attempts attempts"
     exit 1
 }
 
